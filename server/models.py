@@ -53,7 +53,6 @@ class Recipe(db.Model):
   title = db.Column(db.String, nullable=True)
   instructions = db.Column(db.String, nullable=True)
   date = db.Column(db.Date, nullable=False)
-  api_id = db.Column(db.Integer, nullable=True)
 
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   user = db.relationship('User', back_populates='recipes')
@@ -65,7 +64,6 @@ class RecipeSchema(Schema):
   title = fields.String(required=False, allow_none=True)
   instructions = fields.String(required=False, allow_none=True)
   date = fields.Date(required = True)
-  api_id = fields.Integer(required=False, allow_none=True)
 
   user = fields.Nested(lambda:UserSchema(exclude=['recipes']))
   ingredients = fields.Nested(lambda:IngredientSchema(exclude=['recipe']),many=True)
@@ -89,7 +87,6 @@ class Ingredient(db.Model):
   name = db.Column(db.String, nullable=False)
   quantity = db.Column(db.Float, nullable=False)
   quantity_description = db.Column(db.String, nullable=False) 
-  checked_off = db.Column(db.Boolean, default=False, nullable=False)
 
   recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))
   recipe = db.relationship('Recipe', back_populates='ingredients')
@@ -99,7 +96,6 @@ class IngredientSchema(Schema):
   name = fields.String(required=True, validate=validate.Length(min=3, max=25, error="name must be between 3 and 25 characters"))
   quantity = fields.Float(required=True, validate=validate.Range(min=0.5, max=50.0, error='qantitiy must be between 0.5 and 50.0'))
   quantity_description = fields.String(required=True, validate=validate.Length(min=1, max=20, error='description must be between 1 and 20 characters'))
-  checked_off = fields.Boolean(truthy={True}, falsy={False})
 
   recipe = fields.Nested(lambda:RecipeSchema(exclude=['ingredients']))
 
