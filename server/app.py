@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, make_response
 import requests
 from flask_restful import Resource, Api
 from sqlalchemy.exc import IntegrityError
-from server.extensions import db, bcrypt
+from extensions import db, bcrypt
 from flask_jwt_extended import  JWTManager, create_access_token, get_jwt_identity, jwt_required
 import os
 from dotenv import load_dotenv
