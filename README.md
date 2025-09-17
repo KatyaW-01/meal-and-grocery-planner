@@ -80,28 +80,28 @@ Retrieve information for a specific recipe from Spoonacular API
   - create new project in Neon
   - click on `Connect`
   - click on the .env tab and copy the the `DATABASE_URL`
-  - paste it into .env.local file <br>
+  - paste it into server/.env.local file <br>
   <br>
-* Create a JSON Web Token Secret Key (can be anything) and paste into .env.local file <br>
+* Create a JSON Web Token Secret Key (can be anything) and paste into server/.env.local file <br>
 <br>
 
-* Get an api key from spoonacular API and paste into .env.local file (https://spoonacular.com/food-api) 
+* Get an api key from spoonacular API and paste into server/.env.local file (https://spoonacular.com/food-api) 
   - go to the pricing tab
   - click "get started" on the free option
   - go to "profile & API Key"
-  - copy your personal API key and paste into .env.local file <br>
+  - copy your personal API key and paste into server/.env.local file <br>
   <br>
 * Run migration and seed the database (seeding is optional, you will be able to make your own account and add your own data in the app)
   ```bash
-  (must be in the server directory)
-  flask db migrate
-  flask db upgrade head
-  python seed.py (optional)
+  (from the project root directory)
+  FLASK_APP=server flask db migrate
+  FLASK_APP=server flask db upgrade
+  python seed.py
   ```
 * Starting the backend server
   ```bash
-  (from the root directory, not server) 
-  python -m server.app
+  (from the project root directory) 
+  python run.py
   ```
   ### Frontend
 * install necessarry dependencies
