@@ -2,7 +2,10 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
 from marshmallow import Schema, fields, ValidationError, validate
 from marshmallow.validate import Range, Length
-from extensions import bcrypt
+try:
+  from .extensions import bcrypt
+except ImportError:
+  from extensions import bcrypt
 from app import db
 import re
 from datetime import date, timedelta
