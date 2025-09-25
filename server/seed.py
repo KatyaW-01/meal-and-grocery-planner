@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from .app import app, db
-from server.models import User, Recipe, Ingredient, RecipeNote
+from app import app, db
+from models import User, Recipe, Ingredient, RecipeNote
 from datetime import date 
 
 with app.app_context():
@@ -51,32 +51,32 @@ with app.app_context():
 
   #create ingredients for recipes
   #pancakes
-  i1 = Ingredient(recipe=r1, name='flour', quantity=1.5, quantity_description='cups', checked_off=False)
-  i2 = Ingredient(recipe=r1, name='milk', quantity=1.25, quantity_description="cups", checked_off=False)
-  i3 = Ingredient(recipe=r1, name='eggs', quantity=1, quantity_description="egg", checked_off=False)
-  i4 = Ingredient(recipe=r1, name='baking powder', quantity=1, quantity_description="tablespoon", checked_off=False)
-  i5 = Ingredient(recipe=r1, name='sugar', quantity=1, quantity_description="tablespoon", checked_off=False)
-  i6 = Ingredient(recipe=r1, name='butter', quantity=5, quantity_description="tablespoons", checked_off=False)
+  i1 = Ingredient(recipe=r1, name='flour', quantity=1.5, quantity_description='cups')
+  i2 = Ingredient(recipe=r1, name='milk', quantity=1.25, quantity_description="cups")
+  i3 = Ingredient(recipe=r1, name='eggs', quantity=1, quantity_description="egg")
+  i4 = Ingredient(recipe=r1, name='baking powder', quantity=1, quantity_description="tablespoon")
+  i5 = Ingredient(recipe=r1, name='sugar', quantity=1, quantity_description="tablespoon")
+  i6 = Ingredient(recipe=r1, name='butter', quantity=5, quantity_description="tablespoons")
   #caprese salad
-  i7 = Ingredient(recipe=r2, name='tomato', quantity=3, quantity_description='tomatoes', checked_off=False)
-  i8 = Ingredient(recipe=r2, name='mozzarella', quantity=3 , quantity_description='balls', checked_off=False)
-  i9 = Ingredient(recipe=r2, name='basil', quantity=10, quantity_description='leaves', checked_off=False)
-  i10 = Ingredient(recipe=r2, name='olive oil', quantity=2, quantity_description='tablespoons', checked_off=False)
-  i11 = Ingredient(recipe=r2, name='balsamic vinegar', quantity=3 , quantity_description='tablespoons', checked_off=False)
+  i7 = Ingredient(recipe=r2, name='tomato', quantity=3, quantity_description='tomatoes')
+  i8 = Ingredient(recipe=r2, name='mozzarella', quantity=3 , quantity_description='balls')
+  i9 = Ingredient(recipe=r2, name='basil', quantity=10, quantity_description='leaves')
+  i10 = Ingredient(recipe=r2, name='olive oil', quantity=2, quantity_description='tablespoons')
+  i11 = Ingredient(recipe=r2, name='balsamic vinegar', quantity=3 , quantity_description='tablespoons')
   #chicken stir fry
-  i12 = Ingredient(recipe=r3, name='chicken', quantity=2, quantity_description='breasts', checked_off=False)
-  i13 = Ingredient(recipe=r3, name='broccoli', quantity=1, quantity_description='cup', checked_off=False)
-  i14 = Ingredient(recipe=r3, name='bell pepper', quantity=1, quantity_description='cup', checked_off=False)
-  i15 = Ingredient(recipe=r3, name='zucchini', quantity=1, quantity_description='cup', checked_off=False)
-  i16 = Ingredient(recipe=r3, name='soy sauce', quantity=2, quantity_description='tablespoons', checked_off=False)
-  i17 = Ingredient(recipe=r3, name='sesame oil', quantity=3, quantity_description='tablespoons', checked_off=False)
-  i18 = Ingredient(recipe=r3, name='rice', quantity=2, quantity_description='cups', checked_off=False)
+  i12 = Ingredient(recipe=r3, name='chicken', quantity=2, quantity_description='breasts')
+  i13 = Ingredient(recipe=r3, name='broccoli', quantity=1, quantity_description='cup')
+  i14 = Ingredient(recipe=r3, name='bell pepper', quantity=1, quantity_description='cup')
+  i15 = Ingredient(recipe=r3, name='zucchini', quantity=1, quantity_description='cup')
+  i16 = Ingredient(recipe=r3, name='soy sauce', quantity=2, quantity_description='tablespoons')
+  i17 = Ingredient(recipe=r3, name='sesame oil', quantity=3, quantity_description='tablespoons')
+  i18 = Ingredient(recipe=r3, name='rice', quantity=2, quantity_description='cups')
   #spaghetti
-  i19 = Ingredient(recipe=r4, name='spaghetti', quantity=16, quantity_description='oz', checked_off=False)
-  i20 = Ingredient(recipe=r4, name='olive oil', quantity=4, quantity_description='tablespoons', checked_off=False)
-  i21 = Ingredient(recipe=r4, name='chili flakes', quantity=2, quantity_description='tablespoons', checked_off=False)
-  i22 = Ingredient(recipe=r4, name='garlic', quantity=6, quantity_description='cloves', checked_off=False)
-  i23 = Ingredient(recipe=r4, name='parsley', quantity=3, quantity_description='tablespoons', checked_off=False)
+  i19 = Ingredient(recipe=r4, name='spaghetti', quantity=16, quantity_description='oz')
+  i20 = Ingredient(recipe=r4, name='olive oil', quantity=4, quantity_description='tablespoons')
+  i21 = Ingredient(recipe=r4, name='chili flakes', quantity=2, quantity_description='tablespoons')
+  i22 = Ingredient(recipe=r4, name='garlic', quantity=6, quantity_description='cloves')
+  i23 = Ingredient(recipe=r4, name='parsley', quantity=3, quantity_description='tablespoons')
 
   db.session.add_all([i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23])
   db.session.commit()
