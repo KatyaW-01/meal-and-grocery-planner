@@ -11,6 +11,8 @@ from flask_jwt_extended import  JWTManager, create_access_token, get_jwt_identit
 import os
 from dotenv import load_dotenv
 from marshmallow import ValidationError
+from firecrawl import Firecrawl
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -27,7 +29,7 @@ migrate = Migrate(app, db)
 api = Api(app)
 jwt = JWTManager(app)
 
-api_key = os.getenv('SPOONACULAR_API_KEY')
+fc = Firecrawl(api_key = os.getenv("FIRECRAWL_API_KEY"))
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -304,25 +306,31 @@ def delete_a_note(recipe_id,id):
   db.session.commit()
   return {'message': f'Note {id} deleted successfully'}, 200
 
-#api routes
-@app.route('/recipes/cuisine/<string:cuisine>', methods=['GET'])
-def get_recipes_by_cuisine(cuisine):
-  url = 'https://api.spoonacular.com/recipes/complexSearch'
-  params={
-    "cuisine": cuisine,
-    "number": 50,
-    "apiKey": api_key
-  }
-  response = requests.get(url, params=params)
-  return response.json(), response.status_code
+#api routes  
+class Ingredient(BaseModel):
+  amount: float = None
+  unit: str = None
+  ingredient: str = ""
 
-@app.route('/recipes/information/<int:recipe_id>', methods=['GET'])
-def get_recipe_information(recipe_id):
-  url = f'https://api.spoonacular.com/recipes/{recipe_id}/information'
-  params = {"apiKey": api_key}
-  response = requests.get(url, params=params)
-  return response.json(), response.status_code
-  
+class JsonSchema(BaseModel):
+  title: str = ""
+  ingredients: list[Ingredient] = []
+  instructions: list[str] = []
+
+@app.route('/scrape-recipe', methods=['POST'])
+def scrape_recipe():
+  data = request.get_json()
+  url = data.get('url')
+  result = fc.scrape(
+    url,
+    formats=[{
+      "type": "json",
+      "schema": JsonSchema
+    }],
+    only_main_content=True
+  )
+  return result.json
+
 @app.after_request
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
