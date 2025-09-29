@@ -5,7 +5,7 @@ export async function signup(name, username, password) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({name, username,password})
+      body: JSON.stringify({name, username, password})
     })
     const data = await response.json()
     localStorage.setItem("token", data.token)
