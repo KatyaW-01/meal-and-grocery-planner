@@ -11,6 +11,6 @@ export async function scrape(url) {
     return data
   } catch (error) {
     console.error('Error scraping website:', error)
-    return {}
+    return null
   }
 }
