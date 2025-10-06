@@ -60,7 +60,7 @@ function EditIngredientsForm({recipeObject}) {
     const recipeId = recipeObject[0].id
     const ingredientId = editedIngredients[index].id
     const content = editedIngredients[index]
-    const {checked_off, id, recipe, ...rest} = content
+    const {id, recipe, ...rest} = content
     const result = await editIngredient(recipeId, ingredientId, rest)
     if (!result.error) {
       alert('Ingredient successfully updated')
