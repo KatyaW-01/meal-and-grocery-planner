@@ -28,8 +28,6 @@ function App() {
 
   if (loading) return ""
 
-  
-
   function onLogin(token,user) {
     localStorage.setItem("token",token)
     setUser(user)
