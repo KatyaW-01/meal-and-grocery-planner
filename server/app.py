@@ -33,7 +33,7 @@ fc = Firecrawl(api_key = os.getenv("FIRECRAWL_API_KEY"))
 
 @app.route('/signup', methods=['POST'])
 def signup():
-  from server.models import User, UserSchema
+  from models import User, UserSchema
   signup_data = request.get_json()
   username = signup_data.get('username')
   name = signup_data.get('name')
@@ -56,7 +56,7 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
-  from server.models import User, UserSchema
+  from models import User, UserSchema
   
   login_data = request.get_json()
   username = login_data.get('username')
@@ -73,7 +73,7 @@ def login():
 @app.route('/me', methods=['GET'])
 @jwt_required()
 def check_session():
-  from server.models import User, UserSchema
+  from models import User, UserSchema
   user_id = get_jwt_identity()
   user = User.query.filter(User.id == user_id).first()
   response = make_response(UserSchema().dump(user))
@@ -83,7 +83,7 @@ def check_session():
 @app.route('/api/recipes', methods=['GET'])
 @jwt_required()
 def get_recipes():
-  from server.models import Recipe, RecipeSchema
+  from models import Recipe, RecipeSchema
   user_id = get_jwt_identity()
   recipes = Recipe.query.filter(Recipe.user_id == user_id).all()
   return RecipeSchema(many=True).dump(recipes), 200
@@ -92,7 +92,7 @@ def get_recipes():
 @app.route('/api/recipes', methods=['POST'])
 @jwt_required()
 def create_recipes():
-  from server.models import Recipe, RecipeSchema
+  from models import Recipe, RecipeSchema
   data = request.get_json()
   try:
     recipe_data = RecipeSchema().load(data)
@@ -114,7 +114,7 @@ def create_recipes():
 @app.route('/api/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
 def get_one_recipe(recipe_id):
-  from server.models import Recipe, RecipeSchema
+  from models import Recipe, RecipeSchema
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
   if not recipe:
@@ -125,7 +125,7 @@ def get_one_recipe(recipe_id):
 @app.route('/api/recipes/<int:recipe_id>', methods=['PATCH'])
 @jwt_required()
 def update_a_recipe(recipe_id):
-  from server.models import Recipe, RecipeSchema
+  from models import Recipe, RecipeSchema
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
   if not recipe:
@@ -151,7 +151,7 @@ def update_a_recipe(recipe_id):
 @app.route('/api/recipes/<int:recipe_id>', methods=['DELETE'])
 @jwt_required()
 def delete_a_recipe(recipe_id):
-  from server.models import Recipe
+  from models import Recipe
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
   if not recipe:
@@ -164,7 +164,7 @@ def delete_a_recipe(recipe_id):
 @app.route('/api/recipes/<int:recipe_id>/ingredients', methods=['POST'])
 @jwt_required()
 def create_an_ingredient(recipe_id):
-  from server.models import Ingredient, IngredientSchema, Recipe
+  from models import Ingredient, IngredientSchema, Recipe
   data = request.get_json()
   user_id = get_jwt_identity()
   #make sure recipe belongs to the user
@@ -193,7 +193,7 @@ def create_an_ingredient(recipe_id):
 @app.route('/api/recipes/<int:recipe_id>/ingredients/<int:id>', methods=['PATCH'])
 @jwt_required()
 def update_an_ingredient(recipe_id,id):
-  from server.models import Ingredient, IngredientSchema, Recipe
+  from models import Ingredient, IngredientSchema, Recipe
   user_id = get_jwt_identity()
   #ensure recipe is connected to the user
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
@@ -224,7 +224,7 @@ def update_an_ingredient(recipe_id,id):
 @app.route('/api/recipes/<int:recipe_id>/ingredients/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_an_ingredient(recipe_id,id):
-  from server.models import Ingredient, Recipe
+  from models import Ingredient, Recipe
   user_id = get_jwt_identity()
   #make sure user can't delete someone else's ingredient
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
@@ -242,7 +242,7 @@ def delete_an_ingredient(recipe_id,id):
 @app.route('/api/recipes/<int:recipe_id>/notes', methods=['POST'])
 @jwt_required()
 def create_a_note(recipe_id):
-  from server.models import RecipeNote, RecipeNoteSchema, Recipe
+  from models import RecipeNote, RecipeNoteSchema, Recipe
   data = request.get_json()
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
@@ -267,7 +267,7 @@ def create_a_note(recipe_id):
 @app.route('/api/recipes/<int:recipe_id>/notes/<int:id>', methods=['PATCH'])
 @jwt_required()
 def patch(recipe_id,id):
-  from server.models import RecipeNote, RecipeNoteSchema, Recipe
+  from models import RecipeNote, RecipeNoteSchema, Recipe
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
   if not recipe:
@@ -294,7 +294,7 @@ def patch(recipe_id,id):
 @app.route('/api/recipes/<int:recipe_id>/notes/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_a_note(recipe_id,id):
-  from server.models import RecipeNote, Recipe
+  from models import RecipeNote, Recipe
   user_id = get_jwt_identity()
   recipe = Recipe.query.filter(Recipe.user_id == user_id, Recipe.id == recipe_id).first()
   if not recipe:
