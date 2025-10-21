@@ -188,3 +188,33 @@
   color: #8B0000;
 }
 
+.api-form-div {
+  background-color: #8FBC8F;
+  padding: 30px;
+  justify-items: center;
+  justify-content: center;
+  margin: 30px;
+  border-radius: 5px;
+}
+
+.api-form {
+  text-align: center;
+}
+
+.api-form input {
+  margin-left: 10px;
+  margin-right: 20px;
+  width: 300px;
+  padding: 7px;
+  font-size: 20px;
+}
+
+.api-form label{
+ font-size: 30px;
+ text-align: center;
+}
+
+.api-form button {
+  padding: 7px;
+  border-radius: 5px;
+}
