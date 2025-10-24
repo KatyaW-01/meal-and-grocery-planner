@@ -4,16 +4,19 @@ import { createRecipe } from "../api/recipes"
 import { addIngredient } from "../api/ingredients"
 import {UserContext} from '../UserContext'
 import {useContext} from "react"
+import {useNavigate} from "react-router-dom"
 import '../styles/recipeIngredientForms.css'
 
 function SaveRecipeForm() {
   const { user, setUser } = useContext(UserContext)
   const [url, setUrl] = useState("")
   const [date, setDate] = useState("")
-  const [recipeData, setRecipeData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   async function handleSubmit(event) {
     event.preventDefault()
+    setLoading(true)
     if(!date) {
       alert("Please enter a date")
     }
@@ -21,6 +24,9 @@ function SaveRecipeForm() {
       alert("Error url cannot be blank")
     }
     const result = await scrape(url)
+    if(result) {
+      setLoading(false)
+    }
     console.log("result:",result)
     const recipeObj = await createRecipeObject(result)
     console.log("recipe object:",recipeObj)
@@ -58,6 +64,10 @@ function SaveRecipeForm() {
     } 
   }
 
+  function handleBack() {
+    navigate('/recipes')
+  }
+
   return (
     <div>
       <div className='api-form-div'>
@@ -68,6 +78,10 @@ function SaveRecipeForm() {
           <input type='date' id='date' name='date' value={date} onChange={handleChange}/>
           <button type='submit'>Submit</button>
         </form>
+      </div>
+      {loading && <p>Creating your recipe...</p>}
+      <div className='back-button-div'>
+      <button type="button" onClick={handleBack}>Back to Recipes</button>
       </div>
     </div>
   )
