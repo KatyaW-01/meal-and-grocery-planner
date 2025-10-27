@@ -214,6 +214,8 @@ def update_an_ingredient(recipe_id,id):
     ingredient.quantity = validated_data['quantity']
   if 'quantity_description' in validated_data:
     ingredient.quantity_description = validated_data['quantity_description']
+  if 'checked_off' in validated_data:
+    ingredient.checked_off = validated_data['checked_off']
   db.session.commit()
   return {'message': f'Ingredient {id} updated successfully'}, 200
 
