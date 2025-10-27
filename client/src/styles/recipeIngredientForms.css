@@ -218,3 +218,14 @@
   padding: 7px;
   border-radius: 5px;
 }
+
+.loading-message {
+  text-align: center;
+  font-size: 20px;
+}
+
+.completed-message {
+  text-align: center;
+  font-size: 20px;
+  color: #006400
+}
