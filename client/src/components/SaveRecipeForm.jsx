@@ -12,26 +12,34 @@ function SaveRecipeForm() {
   const [url, setUrl] = useState("")
   const [date, setDate] = useState("")
   const [loading, setLoading] = useState(false)
+  const [completed, setCompleted] = useState(false)
   const navigate = useNavigate()
 
   async function handleSubmit(event) {
     event.preventDefault()
+    setCompleted(false)
     setLoading(true)
     if(!date) {
       alert("Please enter a date")
     }
     if(!url) {
-      alert("Error url cannot be blank")
+      alert("Error: url cannot be blank")
     }
     const result = await scrape(url)
+    if(!result || result.error) {
+      alert("Error, please ensure url is correct and is for a recipe")
+      return
+    }
     if(result) {
       setLoading(false)
+      setCompleted(true)
+      setUrl("")
+      setDate("")
     }
     console.log("result:",result)
     const recipeObj = await createRecipeObject(result)
-    console.log("recipe object:",recipeObj)
     if(recipeObj) {
-      await createIngredients(recipeObj)
+      await createIngredients(recipeObj, result)
     }
   }
   
@@ -40,18 +48,31 @@ function SaveRecipeForm() {
       //create recipe object
       const newRecipe = await createRecipe({title: data.title, instructions: (data.instructions).join(" "), date: date })
       //update state if recipe created successfully
-      if(!newRecipe.error) {
+      if(newRecipe) {
         setUser(prev => ({
           ...prev, recipes:[...prev.recipes, newRecipe]
         }))
-
         return newRecipe
       }
     } 
   }
 
-  async function createIngredients(recipe) {
-    console.log("recipeId:", recipe.id)
+  async function createIngredients(recipe, data) {
+    const recipeId = recipe.id
+    if(data.ingredients) {
+      for (const ingredient of data.ingredients) {
+        console.log("ingredient:", ingredient)
+        const result = await addIngredient({name: ingredient.ingredient, quantity: ingredient.amount, quantity_description: ingredient.unit || 'item'}, recipeId)
+        console.log(result)
+        if(result) {
+          const addedIngredient = result
+          setUser(prev => ({
+            ...prev, recipes: prev.recipes.map(recipe => recipe.id === recipeId ?
+              {...recipe, ingredients: [...(recipe.ingredients || []), addedIngredient]} : recipe)
+          }))
+        }
+      }
+    }
   }
 
   function handleChange(event) {
@@ -79,7 +100,8 @@ function SaveRecipeForm() {
           <button type='submit'>Submit</button>
         </form>
       </div>
-      {loading && <p>Creating your recipe...</p>}
+      {loading && <p className='loading-message'>Creating your recipe...</p>}
+      {completed && <p className='completed-message'>Recipe Created!</p>}
       <div className='back-button-div'>
       <button type="button" onClick={handleBack}>Back to Recipes</button>
       </div>

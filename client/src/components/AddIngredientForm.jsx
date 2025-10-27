@@ -40,8 +40,7 @@ function AddIngredientForm({recipe_id}) {
       const addedIngredient = result
       setUser(prev => ({
         ...prev, recipes: prev.recipes.map(recipe => recipe.id === recipe_id ?
-          {...recipe, ingredients: [...(recipe.ingredients || []), addedIngredient]} : recipe
-        )
+          {...recipe, ingredients: [...(recipe.ingredients || []), addedIngredient]} : recipe)
       }))
     } else {
       alert('Error adding ingredient(s), please try again.')
