@@ -165,6 +165,7 @@
   flex-direction: row;
   gap: 20px;
   justify-content: center;
+  margin-bottom: 50px;
 }
 
 .recipe-actions button {

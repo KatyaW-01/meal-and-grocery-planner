@@ -2,7 +2,7 @@
   margin: 20px
 }
 
-.cuisine-buttons {
+/* .cuisine-buttons {
   gap:20px
 }
 
@@ -19,9 +19,9 @@
 .cuisine-buttons button:hover {
   background-color: #87CEFA;
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
+} */
 
-.recipes-by-cuisine-div {
+/* .recipes-by-cuisine-div {
   display: grid;
   grid-template-columns: repeat(4,1fr);
   gap: 20px;
@@ -30,9 +30,9 @@
   justify-content: center;
   justify-items: center;
   
-}
+} */
 
-.recipes-by-cuisine {
+/* .recipes-by-cuisine {
   border: 2px solid #F5D88C;
   border-radius: 5px;
   width: 300px;
@@ -66,7 +66,7 @@
 
 .recipes-by-cuisine button:hover {
   background-color: #F5E6C6;
-}
+} */
 
 .loading-message,
 .error-message {
@@ -87,3 +87,37 @@
   backdrop-filter: blur(5px);
   z-index: 900
 }
+
+.recipe-card-div {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  box-sizing: border-box;
+  justify-items: center;
+}
+.recipe-card-div .more-info-button {
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color:#BEBEBE;
+}
+
+.more-info-button:hover {
+  background-color:	#C8C8C8;
+}
+
+.recipe-card {
+  border: 2px solid #A3D3FF;
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #A3D3FF;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+
+
