@@ -3,9 +3,13 @@ import {useState} from "react"
 import NavBar from "../components/NavBar"
 import '../styles/recipePage.css'
 import {useNavigate} from "react-router-dom"
+import {UserContext} from '../UserContext'
+import {useContext} from "react"
+import RecipeCard from "../components/RecipeCard"
 
 
 function Recipes() {
+  const { user} = useContext(UserContext)
   const navigate = useNavigate()
 
   function handleCreateRecipe() {
@@ -26,6 +30,13 @@ function Recipes() {
         <div className='recipe-actions'>
           <button onClick={handleSaveRecipe}>Save Recipe From Wepage</button>
           <button onClick={handleCreateRecipe}>Create Your Own Recipe</button>
+        </div>
+        <div className='recipe-card-div'>
+          {user.recipes.map((recipe) => (
+            <div key={recipe.id} >
+              <RecipeCard recipe={recipe}/>
+            </div>
+          ))}
         </div>
       </div>
     </div>
