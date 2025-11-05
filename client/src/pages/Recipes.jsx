@@ -1,5 +1,5 @@
 import React from "react"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import NavBar from "../components/NavBar"
 import '../styles/recipePage.css'
 import {useNavigate} from "react-router-dom"
@@ -11,6 +11,19 @@ import RecipeCard from "../components/RecipeCard"
 function Recipes() {
   const { user} = useContext(UserContext)
   const navigate = useNavigate()
+  const [userRecipes, setUserRecipes] = useState(user.recipes)
+  const [uniqueUserRecipes, setUniqueUserRecipes] = useState([])
+
+  useEffect(() => {
+    //remove duplicate recipes
+    const unique = userRecipes.reduce((acc,recipe) => {
+      if(!acc.some(r => r.title === recipe.title)) {
+        acc.push(recipe)
+      }
+      return acc
+    }, [])
+    setUniqueUserRecipes(unique)
+  },[])
 
   function handleCreateRecipe() {
     navigate('/addRecipes')
@@ -32,7 +45,7 @@ function Recipes() {
           <button onClick={handleCreateRecipe}>Create Your Own Recipe</button>
         </div>
         <div className='recipe-card-div'>
-          {user.recipes.map((recipe) => (
+          {uniqueUserRecipes.map((recipe) => (
             <div key={recipe.id} >
               <RecipeCard recipe={recipe}/>
             </div>

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 
 function RecipeModal({recipe, onClose}) {
   const [ingredients, setIngredients] = useState([])
-  console.log(recipe)
   useEffect(() => {
     let ingredientArray = []
     recipe.ingredients.map((ingredient) => {
