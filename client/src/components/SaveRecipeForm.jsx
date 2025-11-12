@@ -61,7 +61,6 @@ function SaveRecipeForm() {
     const recipeId = recipe.id
     if(data.ingredients) {
       for (const ingredient of data.ingredients) {
-        console.log("ingredient:", ingredient)
         const result = await addIngredient({name: ingredient.ingredient, quantity: ingredient.amount, quantity_description: ingredient.unit || 'item'}, recipeId)
         console.log(result)
         if(result) {
