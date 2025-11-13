@@ -63,7 +63,6 @@
   margin-top: 20px;
 }
 
-
 .add-ingredients-button-div button {
   margin-top: 0;
   border: none;
@@ -90,73 +89,63 @@
   background-color: #C0C0C0;
 }
 
+.submit-message {
+  color: #F9629F
+}
+
 /* style add ingredient forms */
+
 .add-ingredient-form-div {
-  display: flex;
-  flex-direction: row;
   justify-content: center;
-  margin: 20px 425px;
-  background-color: #fadadd;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-items: center; 
 }
 
-.add-ingredient-form-div label {
-  margin: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.add-ingredient-form-div input {
-  max-width: 70px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.add-ingredient-form-div button {
-  margin-left: 20px;
-  border: 	2px solid #B0B0B0;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.add-ingredient-form-div button:hover {
-  background-color: #B0B0B0;
-}
-
-.add-ingredient-form {
+.add-ingredient-form div{
   display: flex;
   flex-direction: column;
-  
-  width: 900px;
-  height: auto;
+  margin-bottom: 10px;
+}
+
+.add-ingredient-form label {
   margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
 }
 
 .add-ingredient-form input {
-  height: 20px;
+  padding: 5px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-
 
 .add-ingredient-form button {
-  height: 30px;
- 
+  border: 2px solid #B0B0B0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 17px;
 }
 
-.ingredient-header {
-  text-align: left;
-  margin: 20px 425px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.form-row {
-  display: flex;
-  align-items: center;
+.add-ingredient-form button:hover {
+  background-color: #B0B0B0;
 }
 
 .error-div {
   text-align: center;
   color: #FF0000
+} 
+
+.submit-all-button {
+  margin-top: 15px;
+  border: 2px solid #B0B0B0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+.submit-all-button:hover {
+  background-color: #B0B0B0;
 }
 
 /* style add your own recipe button */
