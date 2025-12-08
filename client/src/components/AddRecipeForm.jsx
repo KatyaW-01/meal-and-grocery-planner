@@ -11,7 +11,8 @@ function AddRecipeForm() {
   const [newRecipe, setNewRecipe] = useState({title: "", instructions: "", date:""})
   const [errors, setErrors] = useState({})
   const [recipeId, setRecipeId] = useState("")
-  const [ingredientForms, setIngredientForms] = useState([])
+  const [ingredientForms, setIngredientForms] = useState([{}])
+  const [ingredientData, setIngredientData] = useState([])
 
   const navigate = useNavigate()
 
@@ -69,12 +70,28 @@ function AddRecipeForm() {
   }
 
   function handleAddIngredient() {
-    //render add ingredient forms
+    //renders add ingredient forms
     setIngredientForms([...ingredientForms, {}])
   }
 
   function handleBackButton() {
     navigate('/recipes')
+  }
+
+  function addIngredientData(index, newIngredient) {
+    setIngredientData(prev => {
+      const copy = [...prev]
+      copy[index] = newIngredient
+      return copy
+    })
+  }
+
+  function handleSubmitAll() {
+    //create ingredients for the recipe here
+    console.log("All Ingredients:", ingredientData)
+    //reset the form
+    setNewRecipe({title: "", instructions: "", date:""})
+    //add a way to remove ingredient forms
   }
 
   return (
@@ -100,22 +117,25 @@ function AddRecipeForm() {
           <div>
             <button type='submit'>Submit</button>
           </div>
-        </form>
+        </form>    
+        <p className='submit-message'>Please submit your recipe before submitting ingredients</p>
+        {ingredientForms.length > 0 && 
+        <div> 
+          {ingredientForms.map((_,index) => (
+            <div key={index}> 
+              <h3 className='ingredient-header'>Ingredient {index + 1}</h3>
+              <AddIngredientForm recipe_id={recipeId} addIngredientData={addIngredientData} index={index}/>
+            </div>
+          ))} 
+        </div>
+        }
+        <div className='add-ingredients-button-div'>
+          <button onClick={handleAddIngredient} className='add-ingredients-button' >Add More Ingredients</button>
+        </div>
+        <div>
+          <button type='submit' className='submit-all-button' onClick={handleSubmitAll}>Submit All Ingredients</button>
+        </div>
       </div>
-      <p className='submit-recipe-p'>Please submit your recipe before adding ingredients</p>
-      <div className='add-ingredients-button-div'>
-        <button onClick={handleAddIngredient} className='add-ingredients-button' >Add Ingredients</button>
-      </div>
-      {ingredientForms.length > 0 && 
-      <div> 
-        {ingredientForms.map((_,index) => (
-          <div key={index}> 
-            <h3 className='ingredient-header'>Ingredient {index + 1}</h3>
-            <AddIngredientForm recipe_id={recipeId} />
-          </div>
-        ))} 
-      </div>
-      }
       <div className='back-button-div'>
       <button onClick={handleBackButton}>Back to Browse Recipes</button>
       </div>
