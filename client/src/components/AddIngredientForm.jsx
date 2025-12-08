@@ -1,10 +1,6 @@
-import {addIngredient} from '../api/ingredients'
 import {useState} from 'react'
-import {UserContext} from '../UserContext'
-import {useContext} from "react"
 
-function AddIngredientForm({recipe_id}) {
-  const { user, setUser } = useContext(UserContext)
+function AddIngredientForm({addIngredientData, index}) {
   const [newIngredient, setNewIngredient] = useState({name: "",quantity: "", quantity_description: "" })
   const [errors, setErrors] = useState({})
 
@@ -16,50 +12,40 @@ function AddIngredientForm({recipe_id}) {
     }))
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault()
-    //give error messages if any inputs are blank
-    let newErrors = {}
-    if (!newIngredient.name || newIngredient.name.trim() === "") {
-      newErrors.name = 'Name cannot be empty'
-    }
-    if (!newIngredient.quantity || newIngredient.quantity === "") {
-      newErrors.quantity = 'quantity cannot be empty'
-    }
-    if (!newIngredient.quantity_description || newIngredient.quantity_description.trim() === "") {
-      newErrors.quantity_description = 'quantity_description cannot be empty'
-    }
-    setErrors(newErrors)
-    //dont even try the post request if there are errors
-    if (Object.keys(newErrors).length > 0) return
+  function handleBlur() {
+    const { name, quantity, quantity_description } = newIngredient
 
-    const result = await addIngredient(newIngredient, recipe_id)
-    if (!result.error) {
-      setErrors({})
-      alert('Ingredient(s) successfully added!')
-      const addedIngredient = result
-      setUser(prev => ({
-        ...prev, recipes: prev.recipes.map(recipe => recipe.id === recipe_id ?
-          {...recipe, ingredients: [...(recipe.ingredients || []), addedIngredient]} : recipe)
-      }))
+    if(name && quantity && quantity_description) {
+      addIngredientData(index, newIngredient)
     } else {
-      alert('Error adding ingredient(s), please try again.')
-      setErrors(result.error)
+      let newErrors = {}
+      if (!newIngredient.name || newIngredient.name.trim() === "") {
+        newErrors.name = 'Name cannot be empty'
+      }
+      if (!newIngredient.quantity || newIngredient.quantity === "") {
+        newErrors.quantity = 'quantity cannot be empty'
+      }
+      if (!newIngredient.quantity_description || newIngredient.quantity_description.trim() === "") {
+        newErrors.quantity_description = 'quantity_description cannot be empty'
+      }
+      setErrors(newErrors)
     }
   }
 
-
   return (
     <div className='add-ingredient-form-div'>
-      <form className='add-ingredient-form' onSubmit={handleSubmit}>
-        <div className='form-row'>
+      <form className='add-ingredient-form'>
+        <div>
           <label htmlFor='name'>Name:</label>
-          <input id='name' name='name' type='text' value={newIngredient.name} onChange={handleChange} autoComplete='off'/>
+          <input id='name' name='name' type='text' value={newIngredient.name} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
+        </div>
+        <div>
           <label htmlFor='quantity'>Quantity:</label>
-          <input id='quantity' name='quantity' type='number' min="1" value={newIngredient.quantity} onChange={handleChange} autoComplete='off'/>
+          <input id='quantity' name='quantity' type='number' min="1" value={newIngredient.quantity} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
+        </div>
+        <div>
           <label htmlFor='quantity_description'>Quantity description (oz, cups, lbs, ect.):</label>
-          <input id='quantity_description' name='quantity_description' type='text' value={newIngredient.quantity_description} onChange={handleChange} autoComplete='off'/>
-          <button type='submit'>Submit</button>
+          <input id='quantity_description' name='quantity_description' type='text' value={newIngredient.quantity_description} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
         </div>
         {errors &&
           <div className='error-div'>
