@@ -18,7 +18,6 @@ function LoginForm({onLogin}) {
       navigate('/')
     } else {
       setErrors(loginData.error)
-      console.log(loginData.error)
     }
   }
   return (

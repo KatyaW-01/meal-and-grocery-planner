@@ -17,19 +17,18 @@ function AddIngredientForm({addIngredientData, index}) {
 
     if(name && quantity && quantity_description) {
       addIngredientData(index, newIngredient)
-    } else {
-      let newErrors = {}
-      if (!newIngredient.name || newIngredient.name.trim() === "") {
-        newErrors.name = 'Name cannot be empty'
-      }
-      if (!newIngredient.quantity || newIngredient.quantity === "") {
-        newErrors.quantity = 'quantity cannot be empty'
-      }
-      if (!newIngredient.quantity_description || newIngredient.quantity_description.trim() === "") {
-        newErrors.quantity_description = 'quantity_description cannot be empty'
-      }
-      setErrors(newErrors)
+    } 
+    let newErrors = {}
+    if (!newIngredient.name || newIngredient.name.trim() === "") {
+      newErrors.name = 'Name cannot be empty'
     }
+    if (!newIngredient.quantity || newIngredient.quantity === "") {
+      newErrors.quantity = 'quantity cannot be empty'
+    }
+    if (!newIngredient.quantity_description || newIngredient.quantity_description.trim() === "") {
+      newErrors.quantity_description = 'quantity_description cannot be empty'
+    }
+    setErrors(newErrors)
   }
 
   return (

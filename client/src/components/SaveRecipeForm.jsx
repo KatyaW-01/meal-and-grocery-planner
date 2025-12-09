@@ -36,7 +36,6 @@ function SaveRecipeForm() {
       setUrl("")
       setDate("")
     }
-    console.log("result:",result)
     const recipeObj = await createRecipeObject(result)
     if(recipeObj) {
       await createIngredients(recipeObj, result)
@@ -62,7 +61,6 @@ function SaveRecipeForm() {
     if(data.ingredients) {
       for (const ingredient of data.ingredients) {
         const result = await addIngredient({name: ingredient.ingredient, quantity: ingredient.amount, quantity_description: ingredient.unit || 'item'}, recipeId)
-        console.log(result)
         if(result) {
           const addedIngredient = result
           setUser(prev => ({
