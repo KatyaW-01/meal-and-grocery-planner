@@ -34,17 +34,8 @@ function AddRecipeForm() {
       alert ('Error connecting to user, cannot create recipe.')
       return
     }
-    //check for any invalid data in the form
+    //check for invalid date
     let newErrors = {}
-    if (!newRecipe.title || newRecipe.title.trim() === "") {
-      newErrors.title = 'Title cannot be empty'
-    }
-    if (!newRecipe.instructions || newRecipe.instructions === "") {
-      newErrors.instructions = 'Instructions cannot be empty'
-    }
-    if (!newRecipe.date || newRecipe.date === "") {
-      newErrors.date = 'Not a valid date'
-    }
     const today = new Date()
     const threeWeeksAgo = new Date()
     threeWeeksAgo.setDate(today.getDate() - 21)
@@ -69,43 +60,54 @@ function AddRecipeForm() {
 
   async function handleSubmitAll(event) {
     event.preventDefault()
-    //Add recipe
-    //if there are errors, dont try and make the POST request
-    if(!newRecipe.title && newRecipe.instructions && newRecipe.date) {
-      alert('Error: fields may not be blank')
+    //if there are errors in recipe or ingredients, return
+    if(!newRecipe.title || !newRecipe.instructions || !newRecipe.date) {
+      alert('Error: One or more recipe fields have been left blank')
       return
-    }
-    if (Object.keys(errors).length > 0) return
-    const result = await createRecipe(newRecipe)
-      if (!result.error) {
-        //update state so the new recipe shows up on the calendar
-        const addedRecipe = result
-        setUser(prev => ({
-          ...prev, recipes: [...prev.recipes, addedRecipe]
-        }))
-      } else {
-        alert('Error adding recipe, please try again.')
-        setErrors(result.error)
-      }
-    //Add Ingredients  
+    } 
     for (const ingredient of ingredientData) {
-      const ingredientResult = await addIngredient(ingredient, result.id)
-      if(ingredientResult && result) {
-        //update state
-        setUser(prev => ({
-          ...prev,
-          recipes: prev.recipes.map(r => 
-            r.id === result.id ?
-            {...r, ingredients: [...r.ingredients, ingredientResult]} :r)
-        }))  
-      } else {
-        alert('Error adding recipe and ingredients, please try again')
+      if(!ingredient.name || !ingredient.quantity || !ingredient.quantity_description) {
+        alert('Error: one or more ingredient fields have been left blank')
+        return
       }
     }
-    if (result) {
+    //Add recipe
+    const result = await createRecipe(newRecipe)
+    if (!result.error) {
+      //update state so the new recipe shows up on the calendar
+      const addedRecipe = result
+      setUser(prev => ({
+        ...prev, recipes: [...prev.recipes, addedRecipe]
+      }))
+    } else {
+      alert('Error adding recipe, please try again.')
+      setErrors(result.error)
+    }
+    //Add Ingredients  
+    let success = false
+    if(result) {
+      for (const ingredient of ingredientData) {
+        const ingredientResult = await addIngredient(ingredient, result.id)
+        if(ingredientResult && result) {
+          success = true
+          //update state
+          setUser(prev => ({
+            ...prev,
+            recipes: prev.recipes.map(r => 
+              r.id === result.id ?
+              {...r, ingredients: [...r.ingredients, ingredientResult]} :r)
+          }))  
+        } else {
+          success = false
+          alert('Error adding recipe and ingredients, please try again')
+        } 
+      }
+    }
+    //Give success message if recipe and ingredients have been added and return to previous page
+    if (result && success) {
       alert('recipe and ingredients successfully added')
       navigate('/recipes')
-    }
+    } 
   }
 
   function handleDelete() {
@@ -147,7 +149,7 @@ function AddRecipeForm() {
                 </div>
               }
               <h3 className='ingredient-header'>Ingredient {index + 1}</h3>
-              <AddIngredientForm addIngredientData={addIngredientData} index={index} setIngredientForms={setIngredientForms} ingredientForms={ingredientForms}/>
+              <AddIngredientForm addIngredientData={addIngredientData} index={index}/>
             </div>
           ))} 
         </div>
