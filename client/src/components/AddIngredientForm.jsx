@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function AddIngredientForm({addIngredientData, index}) {
+function AddIngredientForm({addIngredientData, index, setIngredientForms, ingredientForms}) {
   const [newIngredient, setNewIngredient] = useState({name: "",quantity: "", quantity_description: "" })
   const [errors, setErrors] = useState({})
 

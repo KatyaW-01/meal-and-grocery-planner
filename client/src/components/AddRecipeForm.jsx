@@ -108,6 +108,14 @@ function AddRecipeForm() {
     }
   }
 
+  function handleDelete() {
+    if (ingredientForms.length > 1) {
+      setIngredientForms(prev => prev.slice(0, prev.length -1))
+    } else {
+      return
+    }
+  }
+
   return (
     <div>
       <div className='add-recipe-form-div'>
@@ -133,8 +141,13 @@ function AddRecipeForm() {
         <div> 
           {ingredientForms.map((_,index) => (
             <div key={index}> 
+              {index > 0 &&
+                <div className='delete-ingredient-div'>
+                  <button onClick={handleDelete} className='delete-ingredient-button'>X</button>
+                </div>
+              }
               <h3 className='ingredient-header'>Ingredient {index + 1}</h3>
-              <AddIngredientForm addIngredientData={addIngredientData} index={index} />
+              <AddIngredientForm addIngredientData={addIngredientData} index={index} setIngredientForms={setIngredientForms} ingredientForms={ingredientForms}/>
             </div>
           ))} 
         </div>

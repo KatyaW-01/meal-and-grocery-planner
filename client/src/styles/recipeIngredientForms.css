@@ -1,3 +1,4 @@
+/* Recipe Form */
 .add-recipe-form-div {
   justify-content: center;
   justify-items: center; 
@@ -52,6 +53,7 @@
   min-width: 250px
 }
 
+/* Ingredients */
 .add-ingredients-button-div,
 .back-button-div {
   display: flex;
@@ -92,8 +94,6 @@
 .submit-message {
   color: #F9629F
 }
-
-/* style add ingredient forms */
 
 .add-ingredient-form-div {
   justify-content: center;
@@ -148,6 +148,28 @@
   background-color: #B0B0B0;
 }
 
+.delete-ingredient-div {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: right; 
+}
+
+.delete-ingredient-button {
+  border: none;
+  background-color: #87CEFA;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0px 0px 10px 0px;
+}
+
+.delete-ingredient-button:hover {
+  background-color: #A0D9FC;
+}
+
+.ingredient-header {
+  margin: 0px 0px 5px 0px
+}
+
 /* style add your own recipe button */
 .recipe-actions {
   display: flex;
@@ -178,6 +200,7 @@
   color: #8B0000;
 }
 
+/* Firecrawl API */
 .api-form-div {
   background-color: #87CEFA;
   padding: 30px;
@@ -219,3 +242,4 @@
   font-size: 20px;
   color: #006400
 }
+
