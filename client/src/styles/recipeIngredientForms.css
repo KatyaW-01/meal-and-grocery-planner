@@ -131,7 +131,8 @@
   background-color: #B0B0B0;
 }
 
-.error-div {
+.ingredient-error,
+.errors {
   text-align: center;
   color: #FF0000
 } 

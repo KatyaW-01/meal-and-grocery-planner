@@ -26,23 +26,49 @@ function AddRecipeForm() {
     setNewRecipe(prev => ({
       ...prev, [name]: value
     }))
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: ""
+    }))
   }
 
-  async function handleBlur() {
-    // check if user is logged in
-    if (!user) {
-      alert ('Error connecting to user, cannot create recipe.')
-      return
+  function handleTitleBlur() {
+    if(!newRecipe.title || newRecipe.title === "") {
+      setErrors(prev => ({
+        ...prev,
+        title: 'Title cannot be empty'
+      }))
     }
-    //check for invalid date
-    let newErrors = {}
+  }
+
+  function handleInstructionsBlur() {
+    if(!newRecipe.instructions || newRecipe.instructions === "") {
+      setErrors(prev => ({
+        ...prev,
+        instructions: 'Instructions cannot be empty'
+      }))
+    }
+  }
+
+  function handleDateBlur() {
+    //Check for missing Date
+    if(!newRecipe.date || newRecipe.data === "") {
+      setErrors(prev => ({
+        ...prev,
+        date: 'Date cannot be blank'
+      }))
+    }
+    //Check for invalid date
     const today = new Date()
     const threeWeeksAgo = new Date()
     threeWeeksAgo.setDate(today.getDate() - 21)
     if(newRecipe.date && new Date(newRecipe.date) < threeWeeksAgo ) {
-      newErrors.date = 'Date is too far in the past'
+      setErrors(prev => ({
+        ...prev,
+        date: 'Date is too far in the past'
+      }))
     }
-    setErrors(newErrors) 
   }
 
   function handleAddIngredient() {
@@ -125,17 +151,17 @@ function AddRecipeForm() {
         <form className='add-recipe-form' >
           <div>
             <label htmlFor='title'>Title:</label>
-            <input id='title' name='title' type='text' value={newRecipe.title} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
+            <input id='title' name='title' type='text' value={newRecipe.title} onChange={handleChange} autoComplete='off' onBlur={handleTitleBlur}/>
             {errors?.title && <p className='errors'>{errors.title}</p>}
           </div>
           <div>
             <label htmlFor='instructions'>Instructions:</label>
-            <textarea id='instructions' name='instructions' type='text' value={newRecipe.instructions} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
+            <textarea id='instructions' name='instructions' type='text' value={newRecipe.instructions} onChange={handleChange} autoComplete='off' onBlur={handleInstructionsBlur}/>
             {errors?.instructions && <p className='errors'>{errors.instructions}</p>}
           </div>
           <div>
             <label htmlFor='date'>Date:</label>
-            <input id='date' name='date' type='date' value={newRecipe.date} onChange={handleChange} autoComplete='off' onBlur={handleBlur}/>
+            <input id='date' name='date' type='date' value={newRecipe.date} onChange={handleChange} autoComplete='off' onBlur={handleDateBlur}/>
             {errors?.date && <p className='errors'>{errors.date}</p>}
           </div>
         </form>    
