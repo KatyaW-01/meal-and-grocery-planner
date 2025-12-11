@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom"
 import '../styles/recipeIngredientForms.css'
 
 function AddRecipeForm() {
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const [newRecipe, setNewRecipe] = useState({title: "", instructions: "", date:""})
   const [errors, setErrors] = useState({})
   const [ingredientForms, setIngredientForms] = useState([{}])
