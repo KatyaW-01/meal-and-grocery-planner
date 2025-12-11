@@ -87,7 +87,7 @@ function NewIngredient({recipe_id, success}) {
           {errors.quantity_description && <p className='ingredient-error'>{errors.quantity_description}</p>}
         </div>
         <div>
-          <button type='submit'>Submit</button>
+          <button type='submit' className='submit-new-ingredient'>Submit</button>
         </div>
       </form>
     </div>
