@@ -3,13 +3,14 @@ import "../styles/editIngredients.css"
 import { deleteIngredient, editIngredient } from "../api/ingredients"
 import {useContext} from "react"
 import {UserContext} from '../UserContext'
-import AddIngredientForm from "./AddIngredientForm"
+import NewIngredient from "./NewIngredient"
 
 
 function EditIngredientsForm({recipeObject}) {
   const { user, setUser } = useContext(UserContext)
   const [editedIngredients, setEditedIngredients] = useState([])
   const [addIngredientStatus, setAddIngredientStatus] = useState(false)
+  const [addIngredientSuccess, setAddIngredientSuccess] = useState(false)
   useEffect(() => {
     if (recipeObject[0]) {
       setEditedIngredients(recipeObject[0].ingredients || [])
@@ -31,10 +32,16 @@ function EditIngredientsForm({recipeObject}) {
         {addIngredientStatus && 
             <div>
               <h3>Add Ingredient for {recipeObject[0].title}</h3>
-              <AddIngredientForm recipe_id = {recipeObject[0].id}/>
+              <NewIngredient recipe_id = {recipeObject[0].id} success={setAddIngredientSuccess}/>
             </div>
           }
       </div>
+  }
+
+  if(addIngredientSuccess) {
+    return <div>
+      <p className='success-message'>Ingredient successfully added</p>
+    </div>
   }
 
   function handleIngredientChange(index, event) {
@@ -132,7 +139,7 @@ function EditIngredientsForm({recipeObject}) {
       {addIngredientStatus && 
           <div >
             <h3>Add Ingredient for {recipeObject[0].title}</h3>
-              <AddIngredientForm recipe_id = {recipeObject[0].id}/>
+              <NewIngredient recipe_id = {recipeObject[0].id} success={setAddIngredientSuccess}/>
           </div>
         }
     </div>
