@@ -23,9 +23,10 @@
 
 .ingredient-submit-button {
   margin-left: 20px;
+  margin-right: 20px;
   border: none;
   background-color: #8FBC8F;
-  padding: 7px;
+  padding: 5px;
   border-radius: 5px;
   font-size: 15px;
 }
