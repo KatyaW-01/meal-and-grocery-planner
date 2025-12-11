@@ -78,9 +78,14 @@ function AddRecipeForm() {
 
   function addIngredientData(index, newIngredient) {
     setIngredientData(prev => {
-      const copy = [...prev]
-      copy[index] = newIngredient
-      return copy
+      const data = [...prev]
+
+      while(data.length <= index) {
+        data.push({ name: "", quantity: "", quantity_description: "" })
+      }
+
+      data[index] = newIngredient
+      return data
     })
   }
 
@@ -91,8 +96,16 @@ function AddRecipeForm() {
       alert('Error: One or more recipe fields have been left blank')
       return
     } 
+    if(ingredientData.length === 0) {
+      alert("Error: one or more ingredient fields have been left blank")
+      return
+    }
     for (const ingredient of ingredientData) {
       if(!ingredient.name || !ingredient.quantity || !ingredient.quantity_description) {
+        alert('Error: one or more ingredient fields have been left blank')
+        return
+      }
+      if(ingredient === undefined) {
         alert('Error: one or more ingredient fields have been left blank')
         return
       }
@@ -131,7 +144,7 @@ function AddRecipeForm() {
     }
     //Give success message if recipe and ingredients have been added and return to previous page
     if (result && success) {
-      alert('recipe and ingredients successfully added')
+      alert('Recipe and ingredients successfully added!')
       navigate('/recipes')
     } 
   }
