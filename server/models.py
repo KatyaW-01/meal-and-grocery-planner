@@ -96,8 +96,8 @@ class Ingredient(db.Model):
 
 class IngredientSchema(Schema):
   id = fields.Integer(dump_only=True)
-  name = fields.String(required=True, validate=validate.Length(min=3, max=25, error="name must be between 3 and 25 characters"))
-  quantity = fields.Float(required=True, validate=validate.Range(min=0.5, max=50.0, error='qantitiy must be between 0.5 and 50.0'))
+  name = fields.String(required=True, validate=validate.Length(min=3, max=100, error="name must be between 3 and 25 characters"))
+  quantity = fields.Float(required=True, validate=validate.Range(min=0, max=50.0, error='qantitiy must be between 0.5 and 50.0'))
   quantity_description = fields.String(required=True, validate=validate.Length(min=1, max=20, error='description must be between 1 and 20 characters'))
 
   recipe = fields.Nested(lambda:RecipeSchema(exclude=['ingredients']))

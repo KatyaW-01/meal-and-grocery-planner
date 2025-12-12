@@ -1,3 +1,4 @@
+/* Recipe Form */
 .add-recipe-form-div {
   justify-content: center;
   justify-items: center; 
@@ -52,6 +53,7 @@
   min-width: 250px
 }
 
+/* Ingredients */
 .add-ingredients-button-div,
 .back-button-div {
   display: flex;
@@ -62,7 +64,6 @@
 .back-button-div button {
   margin-top: 20px;
 }
-
 
 .add-ingredients-button-div button {
   margin-top: 0;
@@ -90,94 +91,105 @@
   background-color: #C0C0C0;
 }
 
-/* style add ingredient forms */
+.submit-message {
+  color: #F9629F
+}
+
 .add-ingredient-form-div {
-  display: flex;
-  flex-direction: row;
   justify-content: center;
-  margin: 20px 425px;
-  background-color: #fadadd;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-items: center; 
 }
 
-.add-ingredient-form-div label {
-  margin: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.add-ingredient-form-div input {
-  max-width: 70px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.add-ingredient-form-div button {
-  margin-left: 20px;
-  border: 	2px solid #B0B0B0;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.add-ingredient-form-div button:hover {
-  background-color: #B0B0B0;
-}
-
-.add-ingredient-form {
+.add-ingredient-form div{
   display: flex;
   flex-direction: column;
-  
-  width: 900px;
-  height: auto;
+  margin-bottom: 10px;
+}
+
+.add-ingredient-form label {
   margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
 }
 
 .add-ingredient-form input {
-  height: 20px;
+  padding: 5px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-
 .add-ingredient-form button {
-  height: 30px;
- 
+  border: 2px solid #B0B0B0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+.add-ingredient-form button:hover {
+  background-color: #B0B0B0;
+}
+
+.ingredient-error,
+.errors {
+  text-align: center;
+  color: #FF0000
+} 
+
+.submit-all-button {
+  margin-top: 15px;
+  border: 2px solid #B0B0B0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+.submit-all-button:hover {
+  background-color: #B0B0B0;
+}
+
+.delete-ingredient-div {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: right; 
+}
+
+.delete-ingredient-button {
+  border: none;
+  background-color: #87CEFA;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0px 0px 10px 0px;
+}
+
+.delete-ingredient-button:hover {
+  background-color: #A0D9FC;
 }
 
 .ingredient-header {
-  text-align: left;
-  margin: 20px 425px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.form-row {
-  display: flex;
-  align-items: center;
-}
-
-.error-div {
-  text-align: center;
-  color: #FF0000
+  margin: 0px 0px 5px 0px
 }
 
 /* style add your own recipe button */
-.header-and-button {
+.recipe-actions {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 
-.header-and-button button {
+.recipe-actions button {
   border: none;
   height: 35px;
   background-color: #DCC6F0;
-  margin-top: 25px;
   border-radius: 5px;
   padding: 7px;
   font-size: 17px;
 }
 
-.header-and-button button:hover {
+.recipe-actions button:hover {
   background-color: #E0CFF5;
 }
 
@@ -187,5 +199,48 @@
   margin-bottom: 30px;
   font-size: 20px;
   color: #8B0000;
+}
+
+/* Firecrawl API */
+.api-form-div {
+  background-color: #87CEFA;
+  padding: 30px;
+  justify-items: center;
+  justify-content: center;
+  margin: 30px;
+  border-radius: 5px;
+}
+
+.api-form {
+  text-align: center;
+}
+
+.api-form input {
+  margin-left: 10px;
+  margin-right: 20px;
+  width: 300px;
+  padding: 7px;
+  font-size: 20px;
+}
+
+.api-form label{
+ font-size: 30px;
+ text-align: center;
+}
+
+.api-form button {
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 20px;
+}
+
+.completed-message {
+  text-align: center;
+  font-size: 20px;
+  color: #006400
 }
 

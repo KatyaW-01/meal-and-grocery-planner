@@ -1,22 +1,38 @@
 import React from "react"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import NavBar from "../components/NavBar"
 import '../styles/recipePage.css'
 import {useNavigate} from "react-router-dom"
+import {UserContext} from '../UserContext'
+import {useContext} from "react"
+import RecipeCard from "../components/RecipeCard"
 
-import RecipesByCuisine from "../components/RecipesByCuisine"
 
 function Recipes() {
-  const [cuisine, setCuisine] = useState("")
+  const { user} = useContext(UserContext)
   const navigate = useNavigate()
+  const [userRecipes, setUserRecipes] = useState(user.recipes)
+  const [uniqueUserRecipes, setUniqueUserRecipes] = useState([])
 
-  async function handleFetchRecipes(event) {
-    const {value} = event.target
-    setCuisine(value)
-  }
+  useEffect(() => {
+    //remove duplicate recipes
+    if(userRecipes) {
+      const unique = userRecipes.reduce((acc,recipe) => {
+        if(!acc.some(r => r.title === recipe.title)) {
+          acc.push(recipe)
+        }
+        return acc
+      }, [])
+      setUniqueUserRecipes(unique)
+    }
+  },[])
 
   function handleCreateRecipe() {
     navigate('/addRecipes')
+  }
+
+  function handleSaveRecipe() {
+    navigate('/saveRecipes')
   }
 
   return(
@@ -24,17 +40,22 @@ function Recipes() {
       <NavBar />
       <div className="recipes-content">
         <div className="header-and-button">
-          <h1>Browse recipes</h1>
-          <button onClick={handleCreateRecipe}>Add your own recipe</button>
+          <h1>Browse and Add Recipes</h1>
         </div>
-        <div className='cuisine-buttons'>
-          <button onClick={handleFetchRecipes} value={'italian'}>Italian</button>
-          <button onClick={handleFetchRecipes} value={'greek'}>Greek</button>
-          <button onClick={handleFetchRecipes} value={'mexican'}>Mexican</button>
-          <button onClick={handleFetchRecipes} value={'thai'}> Thai</button>
-          <button onClick={handleFetchRecipes} value={'american'}>American</button>
+        <div className='recipe-actions'>
+          <button onClick={handleSaveRecipe}>Save Recipe From Wepage</button>
+          <button onClick={handleCreateRecipe}>Create New Recipe</button>
         </div>
-        {cuisine && <RecipesByCuisine cuisine={cuisine}/>}
+        {!userRecipes || userRecipes.length === 0 ? (<p className='no-recipes'>You have no saved recipes</p>) : (
+          <div className='recipe-card-div'>
+            {uniqueUserRecipes.map((recipe) => (
+              <div key={recipe.id} >
+                <RecipeCard recipe={recipe}/>
+              </div>
+            ))}
+          </div>
+          )
+        }
       </div>
     </div>
   )

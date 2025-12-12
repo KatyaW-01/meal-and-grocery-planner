@@ -31,7 +31,6 @@ function SignupForm({onLogin}) {
         navigate('/')
       } else {
         setErrors(signupData.error)
-        console.log(signupData.error)
       }
     } else {
       alert('passwords must match, please try again.')

@@ -85,12 +85,14 @@ Retrieve information for a specific recipe from Spoonacular API
 * Create a JSON Web Token Secret Key (can be anything) and paste into .env.local file <br>
 <br>
 
-* Get an api key from spoonacular API and paste into .env.local file (https://spoonacular.com/food-api) 
+* Get an api key from firecrawl API and paste into .env.local file (https://www.firecrawl.dev) 
   - go to the pricing tab
   - click "get started" on the free option
   - go to "profile & API Key"
   - copy your personal API key and paste into .env.local file <br>
   <br>
+
+* Change the name of .env.local file to .env so that your keys will be secure
 * Run migration and seed the database (seeding is optional, you will be able to make your own account and add your own data in the app)
   ```bash
   (must be in the server directory)
@@ -100,11 +102,12 @@ Retrieve information for a specific recipe from Spoonacular API
   ```
 * Starting the backend server
   ```bash
-  (from the root directory, not server) 
-  python -m server.app
+  (from the server directory) 
+  python app.py
   ```
   ### Frontend
 * install necessarry dependencies
+  (in a second terminal)
   ```bash
   cd client
   npm install
@@ -116,7 +119,3 @@ Retrieve information for a specific recipe from Spoonacular API
   ```
 * Copy the localhost link into your browser to view and interact with the application <br>
 http://localhost:5173/
-
-### Future refactors
-1. The API I chose to use had some limitations such as not allowing me to store data in a database and only allowing 50 API calls a day with the free version. Due to this, my application currently does not allow saving the recipes from the api, only viewing them. With more time, I will figure out how to work around these limitations or find a different way to let users browse recipes such as creating a file with recipes I have found myself and using that instead of the api. <br> <br>
-2. Also due to time constraints, my application does not currently use my table for recipe notes. In the future I would like to add in a page where you can search for a recipe and view any notes you have made about that recipe. 

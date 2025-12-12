@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Recipes from './pages/Recipes'
 import Grocery from './pages/Grocery'
 import AddRecipeForm from './components/AddRecipeForm'
+import SaveRecipeForm from './components/SaveRecipeForm'
 import Calendar from './components/Calendar'
 import {checkSession} from './api/signupLogin'
 import {UserContext} from "./UserContext"
@@ -27,8 +28,6 @@ function App() {
 
   if (loading) return ""
 
-  
-
   function onLogin(token,user) {
     localStorage.setItem("token",token)
     setUser(user)
@@ -41,11 +40,10 @@ function App() {
           <Route path='/' element={<Home />}/>
           <Route path='/recipes' element={<Recipes />}/>
           <Route path='/addRecipes' element={<AddRecipeForm />} />
+          <Route path='/saveRecipes' element={<SaveRecipeForm />} />
           <Route path='/grocery' element={<Grocery />}/>
           <Route path='/calendar' element={<Calendar />} />
         </Route>
-      
-
         <Route path='/login' element={<Login onLogin={onLogin}/>}/>
       </Routes>
     </UserContext.Provider>

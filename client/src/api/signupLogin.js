@@ -5,7 +5,7 @@ export async function signup(name, username, password) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({name, username,password})
+      body: JSON.stringify({name, username, password})
     })
     const data = await response.json()
     localStorage.setItem("token", data.token)
@@ -46,6 +46,7 @@ export async function checkSession() {
     })
     const data = await response.json()
     if(!response.ok) {
+      localStorage.removeItem("token")
       return null
     }
     return data
