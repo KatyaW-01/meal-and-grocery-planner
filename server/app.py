@@ -32,6 +32,10 @@ jwt = JWTManager(app)
 
 fc = Firecrawl(api_key = os.getenv("FIRECRAWL_API_KEY"))
 
+@app.route("/")
+def health_check():
+  return {"status": "ok"}, 200
+
 @app.route('/signup', methods=['POST'])
 def signup():
   from models import User, UserSchema
