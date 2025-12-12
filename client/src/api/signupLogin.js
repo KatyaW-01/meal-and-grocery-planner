@@ -46,6 +46,7 @@ export async function checkSession() {
     })
     const data = await response.json()
     if(!response.ok) {
+      localStorage.removeItem("token")
       return null
     }
     return data

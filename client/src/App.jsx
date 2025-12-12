@@ -44,8 +44,6 @@ function App() {
           <Route path='/grocery' element={<Grocery />}/>
           <Route path='/calendar' element={<Calendar />} />
         </Route>
-      
-
         <Route path='/login' element={<Login onLogin={onLogin}/>}/>
       </Routes>
     </UserContext.Provider>
