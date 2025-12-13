@@ -337,10 +337,17 @@ def scrape_recipe():
 
 @app.after_request
 def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'https://plate-and-pantry-frontend.onrender.com'
+    allowed_origins = [
+      "http://localhost:5173",
+      "https://plate-and-pantry-frontend.onrender.com"
+    ]
+    origin = request.headers.get("Origin")
+    if origin in allowed_origins:
+      response.headers['Access-Control-Allow-Origin'] = origin
+    # response.headers['Access-Control-Allow-Origin'] = 'https://plate-and-pantry-frontend.onrender.com'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, DELETE, OPTIONS'
     return response
 
 if __name__ == '__main__':
-  app.run(port=5555, debug=True)
+  app.run(debug=True)
