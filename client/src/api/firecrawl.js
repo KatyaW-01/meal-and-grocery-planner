@@ -1,6 +1,8 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 export async function scrape(url) {
   try {
-    const response = await fetch('http://127.0.0.1:5555/scrape-recipe', {
+    const response = await fetch(`${API_URL}/scrape-recipe`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"

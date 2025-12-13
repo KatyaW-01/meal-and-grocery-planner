@@ -1,6 +1,8 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 export async function signup(name, username, password) {
   try {
-    const response = await fetch('http://127.0.0.1:5555/signup', {
+    const response = await fetch(`${API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -18,7 +20,7 @@ export async function signup(name, username, password) {
 
 export async function login(username, password) {
   try {
-    const response = await fetch('http://127.0.0.1:5555/login', {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -39,7 +41,7 @@ export async function login(username, password) {
 
 export async function checkSession() {
   try {
-    const response = await fetch('http://127.0.0.1:5555/me', {
+    const response = await fetch(`${API_URL}/me`, {
       headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`
       }

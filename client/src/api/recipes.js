@@ -1,6 +1,8 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 export async function createRecipe(content) {
   try {
-    const response = await fetch('http://127.0.0.1:5555/api/recipes', {
+    const response = await fetch(`${API_URL}/api/recipes`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +23,7 @@ export async function createRecipe(content) {
 
 export async function updateRecipe(recipe_id, content) {
   try {
-    const response = await fetch(`http://127.0.0.1:5555/api/recipes/${recipe_id}`, {
+    const response = await fetch(`${API_URL}/api/recipes/${recipe_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +40,7 @@ export async function updateRecipe(recipe_id, content) {
 
 export async function deleteRecipe(recipe_id) {
   try {
-    const response = await fetch(`http://127.0.0.1:5555/api/recipes/${recipe_id}`, {
+    const response = await fetch(`${API_URL}/api/recipes/${recipe_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
