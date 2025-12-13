@@ -55,9 +55,11 @@ def signup():
     access_token = create_access_token(identity=str(user.id))
     return make_response(jsonify(token = access_token, user = UserSchema().dump(user)), 200)
   except ValidationError as err:
-    return{'error': err.messages},400
+    # return{'error': err.messages},400
+    return jsonify(error = err.messages), 400
   except IntegrityError:
-    return {'error': ['Oops! That username is already taken']}, 422
+    # return {'error': ['Oops! That username is already taken']}, 422
+    return jsonify(error = ['Opps! That username is already taken']), 422
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -73,7 +75,8 @@ def login():
     access_token = create_access_token(identity=str(user.id))
     response = make_response(jsonify(token = access_token, user = UserSchema().dump(user)),200)
     return response
-  return {'error': ['Incorrect username or password']}, 401
+  # return {'error': ['Incorrect username or password']}, 401
+  return jsonify(error=['Incorrect username or password']), 401
 
 @app.route('/me', methods=['GET'])
 @jwt_required()

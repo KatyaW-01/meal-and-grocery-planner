@@ -9,15 +9,22 @@ export async function signup(name, username, password) {
       },
       body: JSON.stringify({name, username, password})
     })
-    const data = await response.json()
+    
     if(!response.ok) {
-      return {error: data.error || ['Signup failed']}
+      let errorData
+      try {
+        errorData = await response.json()
+      } catch {
+        errorData = {error: ['Signup failed']}
+      }
+      return {error: errorData.error || ['Signup failed']}
     }
+    const data = await response.json()
     localStorage.setItem("token", data.token)
     return data
   } catch (error) {
     console.error("Error completing signup:", error)
-    return null
+    return {error: ["Error completing signup, please try again"]}
   }
 }
 
@@ -30,10 +37,16 @@ export async function login(username, password) {
       },
       body: JSON.stringify({username, password})
     })
-    const data = await response.json()
     if(!response.ok) {
-      return { error: data.error || ["Login failed"] }
+      let errorData
+      try {
+        errorData = await response.json()
+      } catch {
+        errorData = {error: ['Login failed']}
+      }
+      return { error: errorData.error || ["Login failed"] }
     }
+    const data = await response.json()
     localStorage.setItem("token", data.token)
     return data
   } catch (error) {
