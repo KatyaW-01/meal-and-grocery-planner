@@ -10,6 +10,9 @@ export async function signup(name, username, password) {
       body: JSON.stringify({name, username, password})
     })
     const data = await response.json()
+    if(!response.ok) {
+      return {error: data.error || ['Signup failed']}
+    }
     localStorage.setItem("token", data.token)
     return data
   } catch (error) {
@@ -41,16 +44,18 @@ export async function login(username, password) {
 
 export async function checkSession() {
   try {
+    const token = localStorage.getItem("token")
+    if (!token) return null
     const response = await fetch(`${API_URL}/me`, {
       headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      Authorization: `Bearer ${token}`
       }
     })
-    const data = await response.json()
     if(!response.ok) {
       localStorage.removeItem("token")
       return null
     }
+    const data = await response.json()
     return data
   } catch (error) {
     console.error("Error, user is not logged in:", error)
