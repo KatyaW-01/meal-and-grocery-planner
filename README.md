@@ -1,21 +1,23 @@
 # Meal and Grocery Planner
 My fullstack app with a Python Flask backend and React frontend makes meal planning and grocery shopping simple and stress-free. <br>
 Features:
-* Discover and explore recipes by cuisine
-* Add your own recipes
-* Schedule and view or edit them on your calendar
+* Create custom recipes and add to your calendar
+* Don't want to make your own recipe? Add recipes from a url
+* Browse your saved recipes and add to your calendar again
+* View or edit any recipe on your calendar
 * Automatically generate a weekly grocery list based on planned dishes 
 
 ## Skills Practiced
 * User authentication with JSON Web Tokens (JWT)
 * Model and schema validations
-* Filtering and manipulating data from an API
+* use of Firecrawl API
 * React router
 * Full CRUD functionality
 * Connecting a flask backend to a react frontend
+* Deploying the webpage
 
 ## Models/Tables
-![Model Diagram](./server/images/model_diagram.png)
+![Model Diagram](./server/images/model-diagram.png)
 
 ## Database
 Postgres through Neon <br>
@@ -37,7 +39,7 @@ Users can create a recipe
 * `GET /api/recipes/<int:recipe_id>` <br>
 Get one recipe by the recipe id 
 * `PATCH /api/recipes/<int:recipe_id>` <br>
-User's can edit their recipe
+User's can edit their own recipe
 * `DELETE /api/recipes/<int:recipe_id>` <br>
 User's can delete one of their recipes
 * `POST /api/recipes/<int:recipe_id>/ingredients` <br>
@@ -52,10 +54,9 @@ Create a recipe note (associated with a recipe)
 Edit a recipe note (user's can only edit their own)
 * `DELETE /api/recipes/<int:recipe_id>/notes/<int:id>` <br>
 User's can delete one of their recipe notes
-* `GET recipes/cuisine/<string:cuisine>` <br>
-Retrieve recipes from Spoonacular API by cuisine
-* `GET /recipes/information/<int:recipe_id>` <br>
-Retrieve information for a specific recipe from Spoonacular API
+* `POST /scrape-recipe` <br>
+Firecrawl API, retreives recipe data from a url
+
 
 ## Getting Started
 * Clone the repo onto your machine
@@ -79,7 +80,7 @@ Retrieve information for a specific recipe from Spoonacular API
 * Add a database url to the .env.local file 
   - create new project in Neon
   - click on `Connect`
-  - click on the .env tab and copy the the `DATABASE_URL`
+  - click on the .env tab and copy the `DATABASE_URL`
   - paste it into .env.local file <br>
   <br>
 * Create a JSON Web Token Secret Key (can be anything) and paste into .env.local file <br>
@@ -93,7 +94,7 @@ Retrieve information for a specific recipe from Spoonacular API
   <br>
 
 * Change the name of .env.local file to .env so that your keys will be secure
-* Run migration and seed the database (seeding is optional, you will be able to make your own account and add your own data in the app)
+* Run migration and seed the database (seeding is optional, you will be able to make your own account and add your own data in the application)
   ```bash
   (must be in the server directory)
   flask db migrate
@@ -119,3 +120,6 @@ Retrieve information for a specific recipe from Spoonacular API
   ```
 * Copy the localhost link into your browser to view and interact with the application <br>
 http://localhost:5173/
+
+### View Deployed Webpage:
+https://plate-and-pantry-frontend.onrender.com/
