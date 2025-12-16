@@ -341,7 +341,7 @@ def scrape_recipe():
 @app.after_request
 def add_cors_headers(response):
     allowed_origins = [
-      "http://localhost:5173",
+      "http://localhost:5174",
       "https://plate-and-pantry-frontend.onrender.com"
     ]
     origin = request.headers.get("Origin")
