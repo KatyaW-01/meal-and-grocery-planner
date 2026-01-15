@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: plate-and-pantry-frontend
+    runtime: static
+    routes:
+      - type: rewrite
+        source: /[^.]+
+        destination: /index.html
