@@ -11,7 +11,7 @@ function Login({onLogin}) {
       <>
         <LoginForm onLogin={onLogin}/>
         <div className="signup-link-div">
-          <p>Dont have an account?
+          <p>Don't have an account?
             <button onClick={() => setShowLogin(false)}>Sign Up</button>
           </p>
         </div>
